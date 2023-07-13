@@ -16,6 +16,7 @@ function App() {
       </Navbar>
 
       <div className='main-bg' style={{ backgroundImage : 'url('+ bg +')'}} />
+      {/* <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" /> 외부링크 끌어오기*/}
       
       <Container>
         <Row>
