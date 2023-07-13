@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, Button, Row, Col } from 'react-bootstrap';
+import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
 import { useState } from 'react';
 import data from './data.js';
@@ -23,33 +23,23 @@ function App() {
       
       <Container>
         <Row>
-          <Card shoes={shoes}/>
-          <Col sm>
-            <div className='product2'/>
-            <h4>{shoes[1].title}</h4>
-            <p>{shoes[1].content}</p>
-            <p>{shoes[1].price}</p>
-          </Col>
-          <Col sm>
-            <div className='product3'/>
-            <h4>{shoes[2].title}</h4>
-            <p>{shoes[2].content}</p>
-            <p>{shoes[2].price}</p>
-          </Col>
+          <Card shoes={shoes[0]} i={1}/>
+          <Card shoes={shoes[1]} i={2}/>
+          <Card shoes={shoes[2]} i={3}/>
         </Row>
       </Container>
     </div>
   );
 }
 
-//컴포넌트 만들기 , prop 문법쓰기 , 파라미터 prop 쓰기 , 데이터 바인딩 prop
-function Card(prop){
+//props 문법으로 이미지 바꾸기 url 변경 되는 부분에 ''+ props.i +''
+function Card(props){
   return(
     <Col sm>
-      <div className='product'/>
-      <h4>{prop.shoes[0].title}</h4>
-      <p>{prop.shoes[0].content}</p>
-      <p>{prop.shoes[0].price}</p>
+      <img src={'https://heeyonhh.github.io/shop/src/img/'+ props.i +'.jpeg'} width="80%" />
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.content}</p>
+      <p>{props.shoes.price}</p>
     </Col>
   )
 };
