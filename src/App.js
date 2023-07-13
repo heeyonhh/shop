@@ -1,16 +1,15 @@
 import { Container, Nav, Navbar, Button, Row, Col } from 'react-bootstrap';
 import './App.css';
 import { useState } from 'react';
-import a from './data.js';
-//State data길어지면 다른 파일 만들어서 export 후 import해서 사용하기 / 여러개면 export {a, b}그대로 가져와야함
+import data from './data.js';
+// 함수, 컴포넌트, 모달도 export가능
 
 function App() {
 
-  let [shoes] = useState();
+  let [shoes] = useState(data);
 
   return (
     <div className="App">
-      {a}
       <Navbar bg="light" data-bs-theme="light" className='nav'>
         <Container>
           <Navbar.Brand href="#home">EQL STORE</Navbar.Brand>
@@ -21,24 +20,27 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className='main-bg' />
+      <div className='main-bg'/>
       
       <Container>
         <Row>
           <Col sm>
             <div className='product'/>
-            <h4>상품명</h4>
-            <p>상품설명</p>
+            <h4>{shoes[0].title}</h4>
+            <p>{shoes[0].content}</p>
+            <p>{shoes[0].price}</p>
           </Col>
           <Col sm>
-            <p className='product2'/>
-            <h4>상품명</h4>
-            <p>상품설명</p>
+            <div className='product2'/>
+            <h4>{shoes[1].title}</h4>
+            <p>{shoes[1].content}</p>
+            <p>{shoes[1].price}</p>
           </Col>
           <Col sm>
-            <p className='product3'/>
-            <h4>상품명</h4>
-            <p>상품설명</p>
+            <div className='product3'/>
+            <h4>{shoes[2].title}</h4>
+            <p>{shoes[2].content}</p>
+            <p>{shoes[2].price}</p>
           </Col>
         </Row>
       </Container>
