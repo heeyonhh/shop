@@ -5,8 +5,7 @@ import bg from './img/bg.jpg';
 function App() {
   return (
     <div className="App">
-      {/* classname으로 커스터마이징 가능 */}
-      <Navbar bg="light" data-bs-theme="light">
+      <Navbar bg="light" data-bs-theme="light" className='nav'>
         <Container>
           <Navbar.Brand href="#home">EQL STORE</Navbar.Brand>
           <Nav className="me-auto">
@@ -20,13 +19,21 @@ function App() {
       
       <Container>
         <Row>
-          <Col>
-            <img src="./img/1.jpeg" width="70%" />
+          <Col sm>
+            <div className='product'/>
             <h4>상품명</h4>
             <p>상품설명</p>
           </Col>
-          <Col>2 of 3</Col>
-          <Col>3 of 3</Col>
+          <Col sm>
+            <p className='product2'/>
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </Col>
+          <Col sm>
+            <p className='product3'/>
+            <h4>상품명</h4>
+            <p>상품설명</p>
+          </Col>
         </Row>
       </Container>
     </div>
