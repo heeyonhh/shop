@@ -2,7 +2,6 @@ import { Container, Nav, Navbar, Button, Row, Col } from 'react-bootstrap';
 import './App.css';
 import { useState } from 'react';
 import data from './data.js';
-// 함수, 컴포넌트, 모달도 export가능
 
 function App() {
 
@@ -24,12 +23,7 @@ function App() {
       
       <Container>
         <Row>
-          <Col sm>
-            <div className='product'/>
-            <h4>{shoes[0].title}</h4>
-            <p>{shoes[0].content}</p>
-            <p>{shoes[0].price}</p>
-          </Col>
+          <Card shoes={shoes}/>
           <Col sm>
             <div className='product2'/>
             <h4>{shoes[1].title}</h4>
@@ -47,5 +41,17 @@ function App() {
     </div>
   );
 }
+
+//컴포넌트 만들기 , prop 문법쓰기 , 파라미터 prop 쓰기 , 데이터 바인딩 prop
+function Card(prop){
+  return(
+    <Col sm>
+      <div className='product'/>
+      <h4>{prop.shoes[0].title}</h4>
+      <p>{prop.shoes[0].content}</p>
+      <p>{prop.shoes[0].price}</p>
+    </Col>
+  )
+};
 
 export default App;
