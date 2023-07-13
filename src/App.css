@@ -8,7 +8,7 @@
 
 .main-bg{
   height: 400px;
-  /* background-image: url(./img/dd.jpg); */
+  background-image: url(./img/bg.jpg);
   background-size: cover;
   background-position: center;
   margin-bottom: 50px;

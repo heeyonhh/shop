@@ -1,10 +1,16 @@
 import { Container, Nav, Navbar, Button, Row, Col } from 'react-bootstrap';
 import './App.css';
-import bg from './img/bg.jpg';
+import { useState } from 'react';
+import a from './data.js';
+//State data길어지면 다른 파일 만들어서 export 후 import해서 사용하기 / 여러개면 export {a, b}그대로 가져와야함
 
 function App() {
+
+  let [shoes] = useState();
+
   return (
     <div className="App">
+      {a}
       <Navbar bg="light" data-bs-theme="light" className='nav'>
         <Container>
           <Navbar.Brand href="#home">EQL STORE</Navbar.Brand>
@@ -15,8 +21,7 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className='main-bg' style={{ backgroundImage : 'url('+ bg +')'}} />
-      {/* <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" /> 외부링크 끌어오기*/}
+      <div className='main-bg' />
       
       <Container>
         <Row>
