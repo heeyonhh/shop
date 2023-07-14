@@ -2,37 +2,36 @@ import { Container, Row, Col } from 'react-bootstrap';
 import '../App.css';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-//useEffect 부가기능 훅 -> 안에 있는 코드는 html에 있는 코드 렌더링 후에 동작 빠른 로딩 장점
-//어려운 연산, 서버에서 데이터 가져오는 작업, 타이머 장착할때 씀
-//컴포넌트의 라이프사이클 / 컴포넌트에 갈고리 다는 법 /아래는 옛날 방법
-//mount update unmount
-// class Detail2 extends React.Component {
-//     componentDidMount(){
-//       //Detail2 컴포넌트가 로드되고나서 실행할 코드
-//     }
-//     componentDidUpdate(){
-//       //Detail2 컴포넌트가 업데이트 되고나서 실행할 코드
-//     }
-//     componentWillUnmount(){
-//       //Detail2 컴포넌트가 삭제되기전에 실행할 코드
-//     }
-//   }
 
 function Detail(props) {
-
-    useEffect(()=>{
-        console.log('안녕')
-    })
-
-    let [count, setCount ] = useState(0);
 
     let {id} = useParams();
     let 찾은상품 = props.shoes.find(function(x){
         return x.id == id
     });
+    let [count, setCount ] = useState(0);
+    let [alert, setAlert ] = useState(true);
+
+    useEffect(()=>{
+        setTimeout(()=>{ setAlert(false) }, 2000)
+    }, [])
+    //[]useEffect 실행조건 넣을수 있는 곳 디펜던시/ count 가 업데이트 될때 / 1회만 실행되고 싶으면 [] 비어 놓기
+
+    //동적 ui만들기
+    //1.ui상태 저장할 state 만들고
+    //2.state에 따라서 ui가 어떻게 보일지 작성
 
     return (
         <>
+            <Container>
+                {
+                    alert == true
+                    ? <div className='alert alert-warning'>
+                        2초 이내 구매시 할인
+                     </div>
+                    : null
+                }
+            </Container>
             <Container>
                 <button onClick={()=>{ setCount(count+1) }}>버튼</button>
                 <Row>
