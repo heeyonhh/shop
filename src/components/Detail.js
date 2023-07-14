@@ -13,7 +13,13 @@ function Detail(props) {
     let [alert, setAlert ] = useState(true);
 
     useEffect(()=>{
-        setTimeout(()=>{ setAlert(false) }, 2000)
+        let a = setTimeout(()=>{ setAlert(false) }, 2000)
+
+        return()=>{
+            //  useEffect 전에 실행되고 싶을때 clean up function
+            // 기존 타이머는 제거해주세요
+            clearTimeout(a)
+        }
     }, [])
     //[]useEffect 실행조건 넣을수 있는 곳 디펜던시/ count 가 업데이트 될때 / 1회만 실행되고 싶으면 [] 비어 놓기
 
