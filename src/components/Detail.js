@@ -11,18 +11,17 @@ function Detail(props) {
     });
     let [count, setCount ] = useState(0);
     let [alert, setAlert ] = useState(true);
+    let [num, setNum] = useState('');
 
-    useEffect(()=>{})
-    //재랜더링마다 코드 실행하고 싶으면
-    useEffect(()=>{},[])
-    //mount시 1회 코드 실행하고 싶으면
     useEffect(()=>{
-        return()=>{
-            //unmount시 1회 코드 실행하고 싶으면
-        }
+        setTimeout(()=>{ setAlert(false)}, 2000)
     })
-    useEffect(()=>{})
-    //{useEffect 실행 전에 실행 코드 안에 클린업 펑션}
+
+    useEffect(()=>{
+        if(isNaN(num) == true){
+            alert('숫자를 입력해주세요!')
+        }
+    }, [num])
 
     return (
         <>
@@ -42,6 +41,7 @@ function Detail(props) {
                         <img src='https://codingapple1.github.io/shop/shoes1.jpg' width="100%" />
                     </Col>
                     <Col sm>
+                        <input onChange={(e)=>{ setNum(e.target.value) }} />
                         <h4 className="pt-5">{찾은상품.title}</h4>
                         <p>{찾은상품.content}</p>
                         <p>{찾은상품.price}원</p>
