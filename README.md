@@ -28,14 +28,14 @@
   2. html에서 import 후 'url(' + bg + ')' 작명 문자 넣어주기
   
       import bg from './bg.png'
-      
-        function App(){
-          return (
-            <div>
-              <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
-            </div>
-          )
-        }
+            
+      function App(){
+        return (
+          <div>
+            <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
+          </div>
+        )
+      }
 
   < img > 태그 쓰고싶으면 < img src={bg} / >
 
@@ -62,7 +62,7 @@
 
   App.js 파일
 
-    import data from './data.js';
+      import data from './data.js';
     
       function App(){
         let [shoes] = useState(data);
@@ -70,9 +70,9 @@
 
 - 컴포넌트, props, data export활용
     
-    <Card shoes={shoes[0]} i={1} />
-    <Card shoes={shoes[1]} i={2} />
-    <Card shoes={shoes[2]} i={3} />
+      <Card shoes={shoes[0]} i={1} />
+      <Card shoes={shoes[1]} i={2} />
+      <Card shoes={shoes[2]} i={3} />
 
       function Card(props){
         return (
