@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# react bootstrap 쇼핑몰 구현해보기 🩵
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 0713
 
-In the project directory, you can run:
+- 리액트, 부트스트랩 셋팅
 
-### `npm start`
+  npx create-react-app shop
+  
+  npm install react-bootstrap bootstrap
+  
+  App.js에 import 'bootstrap/dist/css/bootstrap.min.css';
+  
+  or bootstrap CSS 파일을 index.html 파일의 <head> 태그 안에 복붙
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React-Bootstrap 사용법
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 
-### `npm test`
+  import 후 펑션 < div > 안에 태그 복붙
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  className 부여해서 CSS 커스터마이징하는건 자유
 
-### `npm run build`
+- 이미지 넣는 법
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  1. className="main-bg" 클라스 네임 붙이고 App.css파일에 url('./이미지경로');
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  2. html에서 import 후 'url(' + bg + ')' 작명 문자 넣어주기
+  
+        import bg from './bg.png'
+              
+        function App(){
+          return (
+            <div>
+              <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
+            </div>
+          )}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  < img > 태그 쓰고싶으면 < img src={bg} / >
 
-### `npm run eject`
+  3. public 폴더에 있는 이미지 import 안해도 됨
+ 
+     < img src="/logo192.png" / >
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- container : 화면 가로 3등분
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- public 폴더의 용도
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  여러가지 소스 코드는 src 폴더에 보관
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  이미지, txt, json 등 수정이 필요없는 static 파일의 경우 public 폴더에 보관
 
-## Learn More
+  build 후 public 폴더에 있는 것들은 그대로 보존
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- export default / import 문법
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  data.js 파일
 
-### Code Splitting
+    let data = 위에있던 긴 array 자료;
+    export default data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  App.js 파일
 
-### Analyzing the Bundle Size
+      import data from './data.js';
+    
+      function App(){
+        let [shoes] = useState(data);
+      }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 컴포넌트, props, data export활용
+    
+      <Card shoes={shoes[0]} i={1} />
+      <Card shoes={shoes[1]} i={2} />
+      <Card shoes={shoes[2]} i={3} />
 
-### Making a Progressive Web App
+      function Card(props){
+        return (
+          <div className="col-md-4">
+            <img src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'} width="80%" />
+            <h4>{ props.shoes.title }</h4>
+            <p>{ props.shoes.price }</p>
+          </div>
+        )
+      }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  오브젝트자료 props.프롭스작명.오브젝트어레이아이디
 
-### Advanced Configuration
+  이미지 url에 props 활용 : 자식에 i={1} > ' + props.i + '
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 0714
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Router :
