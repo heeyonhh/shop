@@ -27,15 +27,14 @@
 
   2. html에서 import 후 'url(' + bg + ')' 작명 문자 넣어주기
   
-      import bg from './bg.png'
-            
-      function App(){
-        return (
-          <div>
-            <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
-          </div>
-        )
-      }
+        import bg from './bg.png'
+              
+        function App(){
+          return (
+            <div>
+              <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
+            </div>
+          )}
 
   < img > 태그 쓰고싶으면 < img src={bg} / >
 
