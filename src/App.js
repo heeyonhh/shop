@@ -21,6 +21,10 @@ function App() {
         </Container>
       </Navbar>
 
+      {/* 페이지 이동 버튼 */}
+      <Link to="/">Home</Link>
+      <Link to="/detail">상세페이지</Link>
+
       <Routes>
         <Route path="/" element={
           <>
