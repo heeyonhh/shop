@@ -2,6 +2,7 @@ import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
 import { useState } from 'react';
 import data from './data.js';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
@@ -9,6 +10,12 @@ function App() {
 
   return (
     <div className="App">
+
+      <Routes>
+        <Route path="/detail" element={<div>상세페이지임</div>} />
+        <Route path="/about" element={<div>어바웃페이지임</div>} />
+      </Routes>
+
       <Navbar bg="light" data-bs-theme="light" className='nav'>
         <Container>
           <Navbar.Brand href="#home">EQL STORE</Navbar.Brand>
@@ -23,17 +30,11 @@ function App() {
       
       <Container>
         <Row>
-          {/* <Card shoes={shoes[0]} i={1}/>
-          <Card shoes={shoes[1]} i={2}/>
-          <Card shoes={shoes[2]} i={3}/> */}
-          {
-            shoes.map(function(a, i){
+          { shoes.map(function(a, i){
               return(
-                <Card shoes={shoes[i]} i={i}/>
+                <Card shoes={shoes[i]} i={i} />
               )
-            })
-          }
-          {/* 어레이로 변경 */}
+            })}
         </Row>
       </Container>
     </div>
