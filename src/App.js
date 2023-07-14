@@ -2,7 +2,7 @@ import './App.css';
 import data from './data.js';
 
 import { useState } from 'react';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
 
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
@@ -12,7 +12,8 @@ function App() {
 
   let [shoes] = useState(data);
   let navigate = useNavigate();
-  //페이지 이동 도와주는 훅 gkatn
+  //페이지 이동 도와주는 훅 함수 link는 a태그가 생기기 때문에 꼴보기 싫음 이거 써라
+  //navigate(-1) 빠꾸 버튼
 
   return (
     <div className="App">
@@ -21,8 +22,8 @@ function App() {
         <Container>
           <Navbar.Brand href="/">EQL STORE</Navbar.Brand>
           <Nav className="me-auto">
-            <Link className="nav-menu" to="/">Home</Link>
-            <Link className="nav-menu" to="/detail">상세페이지</Link>
+            <Nav.Link className="nav-menu" onClick={()=>{ navigate('/') }}>Home</Nav.Link>
+            <Nav.Link className="nav-menu" onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -43,7 +44,13 @@ function App() {
           </>
         } />
         <Route path="/detail" element={<Detail/>} />
-        <Route path="/about" element={<div>어바웃페이지임</div>} />
+        <Route path="/about" element={<About/>} >
+          <Route path="/about/member" element={<div>멤버임</div>} />
+          <Route path="/about/location" element={<div>위치정보임</div>} />
+          {/* nested route : 여러가지 유사한 페이지 필요할때 사용 잘보면 이것도 동적인 ui같은 것임*/}
+        </Route>
+        <Route path="*" element={<div>URL을 확인해주세요 !</div>} />
+        {/* 404페이지 */}
       </Routes>
 
     </div>
@@ -58,6 +65,16 @@ function Card(props) {
       <p>{props.shoes.content}</p>
       <p>{props.shoes.price}</p>
     </Col>
+  )
+};
+
+function About(){
+  return(
+    <div>
+      <h4>회사 정보임</h4>
+      <Outlet></Outlet>
+      {/* nested route보여줄 자리 */}
+    </div>
   )
 };
 
