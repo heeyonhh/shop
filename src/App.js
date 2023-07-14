@@ -1,29 +1,31 @@
-import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import './App.css';
-import { useState } from 'react';
 import data from './data.js';
-import { Routes, Route, Link } from 'react-router-dom';
+
+import { useState } from 'react';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+
+import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
+
+import Detail from './components/Detail';
 
 function App() {
 
   let [shoes] = useState(data);
+  let navigate = useNavigate();
+  //페이지 이동 도와주는 훅 gkatn
 
   return (
     <div className="App">
 
       <Navbar bg="light" data-bs-theme="light" className='nav'>
         <Container>
-          <Navbar.Brand href="#home">EQL STORE</Navbar.Brand>
+          <Navbar.Brand href="/">EQL STORE</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Link className="nav-menu" to="/">Home</Link>
+            <Link className="nav-menu" to="/detail">상세페이지</Link>
           </Nav>
         </Container>
       </Navbar>
-
-      {/* 페이지 이동 버튼 */}
-      <Link to="/">Home</Link>
-      <Link to="/detail">상세페이지</Link>
 
       <Routes>
         <Route path="/" element={
@@ -40,7 +42,7 @@ function App() {
             </Container>
           </>
         } />
-        <Route path="/detail" element={<div>상세페이지임</div>} />
+        <Route path="/detail" element={<Detail/>} />
         <Route path="/about" element={<div>어바웃페이지임</div>} />
       </Routes>
 
@@ -51,7 +53,7 @@ function App() {
 function Card(props) {
   return (
     <Col sm>
-      <img src={'https://heeyonhh.github.io/shop/src/img/' + (props.i + 1) + '.jpeg'} width="80%" />
+      <img className="detailimg" src={'https://heeyonhh.github.io/shop/src/img/' + (props.i + 1) + '.jpeg'} width="80%" />
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content}</p>
       <p>{props.shoes.price}</p>

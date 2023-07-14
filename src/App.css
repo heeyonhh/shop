@@ -13,3 +13,13 @@
   background-position: center;
   margin-bottom: 50px;
 }
+
+.nav-menu{
+  margin-left: 20px;
+  text-decoration: none;
+  color: grey;
+}
+
+.detailimg{
+  margin-bottom: 20px;
+}
