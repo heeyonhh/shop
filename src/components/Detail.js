@@ -1,29 +1,31 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import '../App.css';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components'
-//css 와 같음 styled-components 장점 이 페이지에서만 적용
-//페이지 로딩 시간 단축
-
-//props로 컴포넌트 재활용 가능
-let YellowBtn = styled.button`
-    background : ${ props => props.bg };
-    color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
-    padding : 10px;
-`
-//기존 스타일 복사 가능
-// let NewBtn = styled.button(YellowBtn)`
-
-// `
-
-let Box = styled.div`
-    background : grey;
-    padding : 20px;
-`
+import { useEffect, useState } from 'react';
+//useEffect 부가기능 훅 -> 안에 있는 코드는 html에 있는 코드 렌더링 후에 동작 빠른 로딩 장점
+//어려운 연산, 서버에서 데이터 가져오는 작업, 타이머 장착할때 씀
+//컴포넌트의 라이프사이클 / 컴포넌트에 갈고리 다는 법 /아래는 옛날 방법
+//mount update unmount
+// class Detail2 extends React.Component {
+//     componentDidMount(){
+//       //Detail2 컴포넌트가 로드되고나서 실행할 코드
+//     }
+//     componentDidUpdate(){
+//       //Detail2 컴포넌트가 업데이트 되고나서 실행할 코드
+//     }
+//     componentWillUnmount(){
+//       //Detail2 컴포넌트가 삭제되기전에 실행할 코드
+//     }
+//   }
 
 function Detail(props) {
 
-    //유저가 url파라미터에 입력한 정보 가져오기
+    useEffect(()=>{
+        console.log('안녕')
+    })
+
+    let [count, setCount ] = useState(0);
+
     let {id} = useParams();
     let 찾은상품 = props.shoes.find(function(x){
         return x.id == id
@@ -31,14 +33,11 @@ function Detail(props) {
 
     return (
         <>
-            <Box>
-                <YellowBtn bg="blue">버튼</YellowBtn>
-                <YellowBtn bg="orange">버튼</YellowBtn>
-            </Box>
             <Container>
+                <button onClick={()=>{ setCount(count+1) }}>버튼</button>
                 <Row>
                     <Col sm>
-                        <img src={'https://codingapple1.github.io/shop/shoes' + (찾은상품) + '.jpg'} width="100%" />
+                        <img src='https://codingapple1.github.io/shop/shoes1.jpg' width="100%" />
                     </Col>
                     <Col sm>
                         <h4 className="pt-5">{찾은상품.title}</h4>
