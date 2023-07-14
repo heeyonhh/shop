@@ -27,15 +27,15 @@
 
   2. html에서 import 후 'url(' + bg + ')' 작명 문자 넣어주기
   
-    import bg from './bg.png'
-    
-    function App(){
-      return (
-        <div>
-          <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
-        </div>
-      )
-    }
+      import bg from './bg.png'
+      
+      function App(){
+        return (
+          <div>
+            <div className="main-bg" style={{ backgroundImage : 'url(' + bg + ')' }}></div>
+          </div>
+        )
+      }
 
   < img > 태그 쓰고싶으면 < img src={bg} / >
 
@@ -64,9 +64,9 @@
 
     import data from './data.js';
     
-    function App(){
-      let [shoes] = useState(data);
-    }
+      function App(){
+        let [shoes] = useState(data);
+      }
 
 - 컴포넌트, props, data export활용
     
@@ -74,15 +74,15 @@
     <Card shoes={shoes[1]} i={2} />
     <Card shoes={shoes[2]} i={3} />
 
-    function Card(props){
-      return (
-        <div className="col-md-4">
-          <img src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'} width="80%" />
-          <h4>{ props.shoes.title }</h4>
-          <p>{ props.shoes.price }</p>
-        </div>
-      )
-    }
+      function Card(props){
+        return (
+          <div className="col-md-4">
+            <img src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'} width="80%" />
+            <h4>{ props.shoes.title }</h4>
+            <p>{ props.shoes.price }</p>
+          </div>
+        )
+      }
 
   오브젝트자료 props.프롭스작명.오브젝트어레이아이디
 
