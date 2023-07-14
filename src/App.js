@@ -43,12 +43,21 @@ function App() {
             </Container>
           </>
         } />
-        <Route path="/detail" element={<Detail/>} />
+        {/* detail 컴포넌트에 props 전송 */}
+        {/* 페이지 여러개 만들고 싶으면 url 파라미터 */}
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+
         <Route path="/about" element={<About/>} >
           <Route path="/about/member" element={<div>멤버임</div>} />
           <Route path="/about/location" element={<div>위치정보임</div>} />
           {/* nested route : 여러가지 유사한 페이지 필요할때 사용 잘보면 이것도 동적인 ui같은 것임*/}
         </Route>
+
+        <Route path="/event" element={<Event/>} >
+          <Route path="/event/one" element={<div>첫주문시 양배추즙 서비스</div>} />
+          <Route path="/event/two" element={<div>생일 기념 쿠폰 받기</div>} />
+        </Route>
+        
         <Route path="*" element={<div>URL을 확인해주세요 !</div>} />
         {/* 404페이지 */}
       </Routes>
@@ -68,12 +77,21 @@ function Card(props) {
   )
 };
 
-function About(){
+function Event(){
   return(
     <div>
       <h4>회사 정보임</h4>
       <Outlet></Outlet>
       {/* nested route보여줄 자리 */}
+    </div>
+  )
+};
+
+function About(){
+  return(
+    <div>
+      <h4>오늘의 이벤트</h4>
+      <Outlet></Outlet>
     </div>
   )
 };
