@@ -8,7 +8,6 @@ import axios from 'axios';
 
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
-//ajax : get post 요청
 function App() {
 
   let [shoes, setShoes] = useState(data);
@@ -48,18 +47,7 @@ function App() {
               })
               
               axios.post('/url', {name: 'kim'})
-              //서버로 데이터 전송하는 post
 
-              //두개 다 받아졌을때만 실행하려면
-              // Promise.all([ axios.get('/url1'), axios.get('/url1')])
-              // .then(결과)=>{
-              //   let copy = [...shoes, ...결과.data];
-              //   setShoes(copy);
-              // }
-
-              // fetch('url').then(결과=>결과.json())
-              //.then(data=>{})
-              //arayy/object 변환과정 필요
             }}>더보기</button>
           </>
         } />
