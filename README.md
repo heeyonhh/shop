@@ -194,7 +194,7 @@
 
 - styled-components 셋팅 npm install styled-components
 
-import styled from 'styled-components';
+      import styled from 'styled-components';
 
       let Box = styled.div`
         padding : 20px;
