@@ -56,27 +56,30 @@ function Detail(props) {
             </Nav>
 
             <TabContent 탭={탭} />
-            {/* {
-                탭 == 0 ? <div>내용0</div> : null
-            } */}
         </>
     )
 };
 
-// 일반 조건문 쓰려면 밖에서 컴포넌트로 만들어서 넣기
 function TabContent({ 탭 }) {
-    // if (props.탭 == 0){
-    //     return <div>내용0</div>
-    // } else if (props.탭 == 1){
-    //     return <div>내용1</div>
-    // } else if (props.탭 == 2){
-    //     return <div>내용2</div>
-    // }
-    return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]
+
+    let [fade, setFade] = useState('')
+
+    useEffect(()=>{
+        setTimeout(()=>{setFade('end')},100)
+
+        setFade('end')
+        return ()=>{
+            setFade('')
+        }
+    }, [탭])
+    // 탭 state가 변할때 end 부착 클린업 펑션
+
+    //띄어쓰기 주의 'start ' + fade = `start ${fade}`
+    return (<div className={'start ' + fade}>
+        { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+    </div>)
 };
 
-//동적 ui 만들기 복습 html css 만들고 / 스위치 만들고 / 컴포넌트화 시키거나 안에서 삼항식 / 이벤트 핸들러 or 어레이 셋변경함수 스위치 건들기
-
-//세가지 똑같음 !
+//리액트의 automatic batching 기능 때문에 시간차를 줘야함
 
 export default Detail;

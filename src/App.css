@@ -14,11 +14,16 @@
   margin-bottom: 50px;
 }
 
-.nav-menu{
-  /* margin-left: 20px;
-  color: grey; */
-}
-
 .detailimg{
   margin-bottom: 20px;
+}
+
+/* 전환 애니메이션 */
+
+.start {
+  opacity : 0
+}
+.end {
+  opacity : 1;
+  transition : opacity 0.5s;
 }
