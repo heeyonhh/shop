@@ -9,6 +9,7 @@ function Detail(props) {
     let 찾은상품 = props.shoes.find(function (x) { return x.id == id });
     let [alert, setAlert] = useState(true);
     let [탭, 탭변경] = useState(1);
+    let [fade2, setFade2] = useState('');
 
     useEffect(() => {
         let a = setTimeout(() => { setAlert(false) }, 10000)
@@ -17,9 +18,16 @@ function Detail(props) {
         }
     }, [])
 
+    useEffect(()=>{
+        setTimeout(()=>{setFade2('end')},100)
+        return()=>{
+            setFade2('');
+        }
+    },[])
+
     return (
         <>
-            <Container>
+            <Container className={'start ' + fade2}>
                 {
                     alert == true
                         ? <div className='alert alert-warning'>
@@ -28,7 +36,7 @@ function Detail(props) {
                         : null
                 }
             </Container>
-            <Container>
+            <Container className={'start ' + fade2}>
                 <Row>
                     <Col sm>
                         <img src='https://codingapple1.github.io/shop/shoes1.jpg' width="100%" />
