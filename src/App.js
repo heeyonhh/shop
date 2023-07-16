@@ -1,22 +1,18 @@
 import './App.css';
 import data from './data.js';
 import Detail from './components/Detail';
+import Cart from './components/Cart';
 
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
-//context api
-//1.보관함
-export let Context1 = createContext();
 
 function App() {
 
   let [shoes, setShoes] = useState(data);
-  let [재고] = useState([10, 11, 12]);
-
   let navigate = useNavigate();
 
   return (
@@ -27,7 +23,8 @@ function App() {
           <Navbar.Brand href="/">EQL STORE</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link className="nav-menu" onClick={()=>{ navigate('/') }}>Home</Nav.Link>
-            <Nav.Link className="nav-menu" onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
+            <Nav.Link className="nav-menu" onClick={()=>{ navigate('/detail/0') }}>Detail</Nav.Link>
+            <Nav.Link className="nav-menu" onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -51,19 +48,13 @@ function App() {
                 let copy = [...shoes, ...결과.data];
                 setShoes(copy);
               })
-              
-              axios.post('/url', {name: 'kim'})
-
             }}>더보기</button>
           </>
         } />
 
-        {/* 2. 전송할 컴포넌트에 Context1.Provider로 감싸고 state 넣어주기 그러면 디테일안에 있는 자식 컴포넌트도 프롭스 없이 쓸수 있음 */}
-        <Route path="/detail/:id" element={
-          <Context1.Provider value={{ 재고, shoes }}>
-            <Detail shoes={shoes} />
-          </Context1.Provider>
-        } />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+
+        <Route path='/cart' element={<Cart/>} />
 
         <Route path="/about" element={<About/>} >
           <Route path="/about/member" element={<div>멤버임</div>} />

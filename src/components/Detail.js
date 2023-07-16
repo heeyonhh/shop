@@ -1,15 +1,9 @@
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import '../App.css';
 import { useParams } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-
-// 3. 보관함 import
-import {Context1} from '../App'
+import { useEffect, useState } from 'react';
 
 function Detail(props) {
-
-    let {재고, shoes} = useContext(Context1);
-    // 4. 보관함 해체
 
     let { id } = useParams();
     let 찾은상품 = props.shoes.find(function (x) { return x.id == id });
@@ -56,8 +50,6 @@ function Detail(props) {
                 </Row>
             </Container>
 
-            {재고}
-
             <Nav variant="tabs" defaultActiveKey="link0">
                 <Nav.Item>
                     <Nav.Link onClick={() => { 탭변경(0) }} eventKey="link0">버튼0</Nav.Link>
@@ -78,7 +70,6 @@ function Detail(props) {
 function TabContent({ 탭 }) {
 
     let [fade, setFade] = useState('')
-    let {재고, shoes} = useContext(Context1);
 
     useEffect(()=>{
         setTimeout(()=>{setFade('end')},100)
@@ -89,7 +80,7 @@ function TabContent({ 탭 }) {
     }, [탭])
 
     return (<div className={'start ' + fade}>
-        { [<div>{재고}</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+        { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
     </div>)
 };
 
