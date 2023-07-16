@@ -466,37 +466,31 @@
  
   2. ui 상태 저장할 state 만들고 컴포넌츠 만들기
 
-        function Detail(){
-          let [탭, 탭변경] = useState(0)
-          
-          return (
-            <TabContent 탭={탭}/>
-          )
+      function Detail(){
+        let [탭, 탭변경] = useState(0)
+        return (
+          <TabContent 탭={탭}/>
+        )}
+      function TabContent(props){
+        if (props.탭 === 0){
+          return <div>내용0</div>
         }
-        
-        function TabContent(props){
-          if (props.탭 === 0){
-            return <div>내용0</div>
-          }
-          if (props.탭 === 1){
-            return <div>내용1</div>
-          }
-          if (props.탭 === 2){
-            return <div>내용2</div>
-          }
+        if (props.탭 === 1){
+          return <div>내용1</div>
         }
+        if (props.탭 === 2){
+          return <div>내용2</div>
+        }}
 
   or
 
       function TabContent(props){
-        return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]
-      }
+        return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]}
 
   or
 
       function TabContent({탭}){
-        return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][탭]
-      }
+        return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][탭]}
 
     3. state에 따라서 UI가 어떻게 보일지 작성
        
@@ -520,22 +514,16 @@
 
   3. useEffect state 추가
       
-        function TabContent({탭}){
-        
-          let [fade, setFade] = useState('')
-        
-          useEffect(()=>{
-            setTImeout(()=>{ setFade('end') }, 100)
-          return ()=>{
-            setFade('')
-          }
-          }, [탭])
-        
-          return (
-            <div className={'start ' + fade}>
-              { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
-            </div>
-          )}
+      function TabContent({탭}){let [fade, setFade] = useState('')
+      
+        useEffect(()=>{
+          setTImeout(()=>{ setFade('end') }, 100)
+        return ()=>{setFade('')}}, [탭])
+      
+        return (
+          <div className={'start ' + fade}>
+            { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+          </div>)}
 
 - 리액트 18버전 이상부터는 automatic batch 라는 기능 생김
 
@@ -549,21 +537,19 @@
 
 - 컴포넌트 컨테이너 트렌지션 애니메이션 주기
 
-        function Detail(props){
-        
-          let [fade2, setFade2] = useState('')
-        
-          useEffect(()=>{
-            setTImeout(()=>{ setFade2('end') }, 100)
-            return ()=>{
-              setFade2('')
-            }
-          },[])
-        
-            return (
-              <div className={'container start ' + fade2}>
-              (하단 html 생략) 
-            )}
+      function Detail(props){
+      
+        let [fade2, setFade2] = useState('')
+      
+        useEffect(()=>{
+          setTImeout(()=>{ setFade2('end') }, 100)
+          return ()=>{
+            setFade2('')
+          }},[])
+      
+          return (
+            <div className={'container start ' + fade2}>
+            (하단 html 생략))}
 
 
 
