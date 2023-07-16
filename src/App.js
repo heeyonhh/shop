@@ -2,15 +2,21 @@ import './App.css';
 import data from './data.js';
 import Detail from './components/Detail';
 
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
+//context api
+//1.보관함
+export let Context1 = createContext();
+
 function App() {
 
   let [shoes, setShoes] = useState(data);
+  let [재고] = useState([10, 11, 12]);
+
   let navigate = useNavigate();
 
   return (
@@ -52,7 +58,12 @@ function App() {
           </>
         } />
 
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        {/* 2. 전송할 컴포넌트에 Context1.Provider로 감싸고 state 넣어주기 그러면 디테일안에 있는 자식 컴포넌트도 프롭스 없이 쓸수 있음 */}
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{ 재고, shoes }}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+        } />
 
         <Route path="/about" element={<About/>} >
           <Route path="/about/member" element={<div>멤버임</div>} />
