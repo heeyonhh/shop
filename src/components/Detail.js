@@ -67,7 +67,6 @@ function TabContent({ 탭 }) {
     useEffect(()=>{
         setTimeout(()=>{setFade('end')},100)
 
-        setFade('end')
         return ()=>{
             setFade('')
         }
@@ -79,7 +78,6 @@ function TabContent({ 탭 }) {
         { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
     </div>)
 };
-
 //리액트의 automatic batching 기능 때문에 시간차를 줘야함
 
 export default Detail;
