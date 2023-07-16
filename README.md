@@ -465,6 +465,7 @@
   1. html css 디자인 > 부트스트랩에서 nav가져오기 (defaultActiveKey 눌린 버튼 설정)
  
   2. ui 상태 저장할 state 만들고 컴포넌츠 만들기
+     
 
       function Detail(){
         let [탭, 탭변경] = useState(0)
@@ -513,6 +514,7 @@
   2. css transition 속성 opacity 추가
 
   3. useEffect state 추가
+     
       
       function TabContent({탭}){let [fade, setFade] = useState('')
       
