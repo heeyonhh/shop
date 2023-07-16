@@ -460,4 +460,101 @@
 
 ## 0715
 
-- 탭 UI 만들기
+- 탭 UI 만들기 : 동적 ui 탭 만들기
+
+  1. html css 디자인 > 부트스트랩에서 nav가져오기 (defaultActiveKey 눌린 버튼 설정)
+ 
+  2. ui 상태 저장할 state 만들고 컴포넌츠 만들기
+     
+
+      function Detail(){
+        let [탭, 탭변경] = useState(0)
+        return (
+          <TabContent 탭={탭}/>
+        )}
+      function TabContent(props){
+        if (props.탭 === 0){
+          return <div>내용0</div>
+        }
+        if (props.탭 === 1){
+          return <div>내용1</div>
+        }
+        if (props.탭 === 2){
+          return <div>내용2</div>
+        }}
+
+  or
+
+      function TabContent(props){
+        return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]}
+
+  or
+
+      function TabContent({탭}){
+        return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][탭]}
+
+    3. state에 따라서 UI가 어떻게 보일지 작성
+       
+      <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link onClick={()=>{ 탭변경(0) }} eventKey="link0">버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={()=>{ 탭변경(1) }} eventKey="link1">버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={()=>{ 탭변경(2) }} eventKey="link2">버튼2</Nav.Link>
+          </Nav.Item>
+      </Nav>
+
+- 컴포넌트 전환 transition
+
+  1. className 생성 start end
+ 
+  2. css transition 속성 opacity 추가
+
+  3. useEffect state 추가
+     
+      
+      function TabContent({탭}){let [fade, setFade] = useState('')
+      
+        useEffect(()=>{
+          setTImeout(()=>{ setFade('end') }, 100)
+        return ()=>{setFade('')}}, [탭])
+      
+        return (
+          <div className={'start ' + fade}>
+            { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+          </div>)}
+
+- 리액트 18버전 이상부터는 automatic batch 라는 기능 생김
+
+  state 변경 함수들이 연달아서 여러개 처리되어야 한다면
+
+  state 변경 함수를 다 처리하고 마지막에 한번만 재랜더링 됨
+
+  그래서 end로 변경하는거랑 '' 로 변경하는 것의 시간차를 둬야함
+
+  flushSync() = setTImeout() 똑같음 automatic batching 막아줌
+
+- 컴포넌트 컨테이너 트렌지션 애니메이션 주기
+
+      function Detail(props){
+      
+        let [fade2, setFade2] = useState('')
+      
+        useEffect(()=>{
+          setTImeout(()=>{ setFade2('end') }, 100)
+          return ()=>{
+            setFade2('')
+          }},[])
+      
+          return (
+            <div className={'container start ' + fade2}>
+            (하단 html 생략))}
+
+
+
+## 0716
+
+- 
