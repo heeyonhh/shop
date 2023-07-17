@@ -3,7 +3,7 @@ import data from './data.js';
 import Detail from './components/Detail';
 import Cart from './components/Cart';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,19 +12,12 @@ import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
 function App() {
 
-  //새로고침하면 자료가 없어짐. 데이터가 없으면 로컬 스토리지에 저장할수 있음
-  //오브젝트, 어레이로 저장 못하기 때문에 제이슨으로 변환해서 저장
-
-  // let obj = {name : 'kim'}
-  // localStorage.setItem('data', obj)
-  //json자료로 변환
-
-  let obj = {name : 'kim'}
-  localStorage.setItem('data', JSON.stringify(obj))
-
-  let 꺼낸거 = localStorage.getItem('data')
-  // console.log(꺼낸거.name);
-  console.log(JSON.parse(꺼낸거).name);
+  // useEffect(()=>{
+  //   localStorage.setItem('watched', JSON.stringify( [] ))
+  // }, [])
+  //새로고침 되면 자료가 날라가서 로컬 스토리지에 자료를 저장해놓기 위해
+  //라이브러리 사용 : redux persist
+  //리덕스와 비슷한 스테이트 관리 라이브러리 : jotai , zustand
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();

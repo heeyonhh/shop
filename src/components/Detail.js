@@ -15,6 +15,18 @@ function Detail(props) {
     let [fade2, setFade2] = useState('');
     let dispatch = useDispatch();
 
+
+    //최근 본 상품 id 로컬 스토리지에 추가하기 set array로 중복 id는 추가하지 않기
+    useEffect(()=>{
+        let 꺼낸거 = localStorage.getItem('watched')
+        꺼낸거 = JSON.parse(꺼낸거)
+        꺼낸거.push(찾은상품.id)
+        //Set으로 바꿨다가 다시 array로 만들기
+        꺼낸거 = new Set(꺼낸거)
+        꺼낸거 = Array.from(꺼낸거)
+        localStorage.setItem('watched', JSON.stringify(꺼낸거))
+      }, [])
+
     useEffect(() => {
         let a = setTimeout(() => { setAlert(false) }, 10000)
         return () => {
