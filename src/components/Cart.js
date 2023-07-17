@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName, increase } from './../store/userSlice'
-//경로 수정
+import { increase } from '../store/userSlice'
+import { addCount } from '../store'
 
 function Cart() {
 
@@ -31,10 +31,9 @@ function Cart() {
                                 <td>{state.cart[i].id}</td>
                                 <td>{state.cart[i].name}</td>
                                 <td>{state.cart[i].count}</td>
-                                {/* 3. 만든함수 import 후 > 디스패치 스테이트 만들고*/}
                                 <td>
                                     <button onClick={()=>{
-                                        dispatch(changeName())
+                                        dispatch(addCount(state.cart[i].id))
                                     }}>+</button>
                                 </td>
                             </tr>
