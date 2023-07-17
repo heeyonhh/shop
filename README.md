@@ -466,9 +466,7 @@
  
   2. ui 상태 저장할 state 만들고 컴포넌츠 만들기
      
-
-      function Detail(){
-        let [탭, 탭변경] = useState(0)
+      function Detail(){let [탭, 탭변경] = useState(0)
         return (
           <TabContent 탭={탭}/>
         )}
@@ -514,10 +512,8 @@
   2. css transition 속성 opacity 추가
 
   3. useEffect state 추가
-     
-      
-      function TabContent({탭}){let [fade, setFade] = useState('')
-      
+           
+      function TabContent({탭}){let [fade, setFade] = useState('')      
         useEffect(()=>{
           setTImeout(()=>{ setFade('end') }, 100)
         return ()=>{setFade('')}}, [탭])
@@ -556,5 +552,69 @@
 
 
 ## 0716
+
+- Context API 문법 : props없이 state 공유하기
+
+  (App.js)
+      
+      export let Context1 = React.createContext();
+      
+      function App(){
+        let [재고, 재고변경] = useState([10,11,12]);
+      
+      return (
+        <Context1.Provider value={ {재고, shoes} }>
+          <Detail shoes={shoes}/>
+        </Context1.Provider>
+        )}
+
+  (Detail.js)
+
+      import {useState, useEffect, useContext} from 'react';
+      import {Context1} from './../App.js';
+      
+      function Detail(){
+        let {재고} = useContext(Context1)
+      
+        return (
+          <div>{재고}</div>
+        )}
+
+- Context API 단점 : state 변경시 쓸데없는 컴포넌트 재렌더링 / import하는게 번거로움
+
+- 장바구니 페이지 만들기 : 라우트 추가 / Cart.js 파일 생성 / 부트스트랩 테이블 가져오기
+
+- Redux Toolkit : props없이 state를 공유할 수 있게 도와주는 라이브러리 (redux 개선버전)
+
+  셋팅 : npm install @reduxjs/toolkit react-redux
+
+  package.json 파일 리액트, 리액트 돔 18.1.x 이상의 버전 인지 확인
+
+  src > store.js 파일 만들기
+
+      import { configureStore } from '@reduxjs/toolkit'
+      
+      export default configureStore({
+        reducer: { }
+      })
+
+  index.js 파일
+
+      import { Provider } from "react-redux";
+      import store from './store.js'
+      
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(
+        <React.StrictMode>
+          <Provider store={store}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Provider>
+        </React.StrictMode>
+      );
+
+
+## 0717
 
 - 
