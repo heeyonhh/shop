@@ -3,11 +3,7 @@ import { useSelector } from 'react-redux';
 
 function Cart() {
 
-    //redux store의 state꺼내기
-    let a = useSelector((state)=>{ return state })
-    //a.user a.stock
-    //useSelector편하게 쓰려면 : 위 state는 모든 state를 뜻함. state.user 만 가져올수도 있음
-    //간단한 프로젝트는 props로 쓰고 컴포넌트 많아지면 쓰면 좋음
+    let state = useSelector((state)=> state)
 
     return (
         <div>
@@ -25,9 +21,15 @@ function Cart() {
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>{state.cart[0].name}</td>
+                        <td>{state.cart[0].count}</td>
+                        <td>변경하기</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>{state.cart[1].name}</td>
+                        <td>{state.cart[1].count}</td>
+                        <td>변경하기</td>
                     </tr>
                 </tbody>
             </Table>
