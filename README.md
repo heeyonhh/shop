@@ -465,23 +465,24 @@
   1. html css 디자인 > 부트스트랩에서 nav가져오기 (defaultActiveKey 눌린 버튼 설정)
  
   2. ui 상태 저장할 state 만들고 컴포넌츠 만들기
-     
-
-      function Detail(){
+ 
+        <>
+        function Detail(){
         let [탭, 탭변경] = useState(0)
-        return (
-          <TabContent 탭={탭}/>
-        )}
-      function TabContent(props){
-        if (props.탭 === 0){
-          return <div>내용0</div>
-        }
-        if (props.탭 === 1){
-          return <div>내용1</div>
-        }
-        if (props.탭 === 2){
-          return <div>내용2</div>
-        }}
+          return (
+            <TabContent 탭={탭}/>
+          )}
+        function TabContent(props){
+          if (props.탭 === 0){
+            return <div>내용0</div>
+          }
+          if (props.탭 === 1){
+            return <div>내용1</div>
+          }
+          if (props.탭 === 2){
+            return <div>내용2</div>
+          }}
+        </>
 
   or
 
@@ -514,18 +515,18 @@
   2. css transition 속성 opacity 추가
 
   3. useEffect state 추가
-     
-      
-      function TabContent({탭}){let [fade, setFade] = useState('')
-      
-        useEffect(()=>{
-          setTImeout(()=>{ setFade('end') }, 100)
-        return ()=>{setFade('')}}, [탭])
-      
-        return (
-          <div className={'start ' + fade}>
-            { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
-          </div>)}
+ 
+        <>
+        function TabContent({탭}){let [fade, setFade] = useState('')      
+          useEffect(()=>{
+            setTImeout(()=>{ setFade('end') }, 100)
+          return ()=>{setFade('')}}, [탭])
+        
+          return (
+            <div className={'start ' + fade}>
+              { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭] }
+            </div>)}
+        </>
 
 - 리액트 18버전 이상부터는 automatic batch 라는 기능 생김
 
@@ -541,20 +542,84 @@
 
       function Detail(props){
       
-        let [fade2, setFade2] = useState('')
+      let [fade2, setFade2] = useState('')
       
-        useEffect(()=>{
-          setTImeout(()=>{ setFade2('end') }, 100)
-          return ()=>{
-            setFade2('')
-          }},[])
+      useEffect(()=>{
+        setTImeout(()=>{ setFade2('end') }, 100)
+        return ()=>{
+          setFade2('')
+        }},[])
       
-          return (
-            <div className={'container start ' + fade2}>
-            (하단 html 생략))}
+        return (
+          <div className={'container start ' + fade2}>
+          (하단 html 생략))}
 
 
 
 ## 0716
+
+- Context API 문법 : props없이 state 공유하기
+
+  (App.js)
+      
+      export let Context1 = React.createContext();
+      
+      function App(){
+        let [재고, 재고변경] = useState([10,11,12]);
+      
+      return (
+        <Context1.Provider value={ {재고, shoes} }>
+          <Detail shoes={shoes}/>
+        </Context1.Provider>
+        )}
+
+  (Detail.js)
+
+      import {useState, useEffect, useContext} from 'react';
+      import {Context1} from './../App.js';
+      
+      function Detail(){
+        let {재고} = useContext(Context1)
+      
+        return (
+          <div>{재고}</div>
+        )}
+
+- Context API 단점 : state 변경시 쓸데없는 컴포넌트 재렌더링 / import하는게 번거로움
+
+- 장바구니 페이지 만들기 : 라우트 추가 / Cart.js 파일 생성 / 부트스트랩 테이블 가져오기
+
+- Redux Toolkit : props없이 state를 공유할 수 있게 도와주는 라이브러리 (redux 개선버전)
+
+  셋팅 : npm install @reduxjs/toolkit react-redux
+
+  package.json 파일 리액트, 리액트 돔 18.1.x 이상의 버전 인지 확인
+
+  src > store.js 파일 만들기
+
+      import { configureStore } from '@reduxjs/toolkit'
+      
+      export default configureStore({
+        reducer: { }
+      })
+
+  index.js 파일
+
+      import { Provider } from "react-redux";
+      import store from './store.js'
+      
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(
+        <React.StrictMode>
+          <Provider store={store}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Provider>
+        </React.StrictMode>
+      );
+
+
+## 0717
 
 - 
