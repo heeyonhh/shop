@@ -465,8 +465,10 @@
   1. html css 디자인 > 부트스트랩에서 nav가져오기 (defaultActiveKey 눌린 버튼 설정)
  
   2. ui 상태 저장할 state 만들고 컴포넌츠 만들기
-     
-      function Detail(){let [탭, 탭변경] = useState(0)
+ 
+     </>
+      function Detail(){
+     let [탭, 탭변경] = useState(0)
         return (
           <TabContent 탭={탭}/>
         )}
@@ -512,7 +514,8 @@
   2. css transition 속성 opacity 추가
 
   3. useEffect state 추가
-           
+ 
+      </>      
       function TabContent({탭}){let [fade, setFade] = useState('')      
         useEffect(()=>{
           setTImeout(()=>{ setFade('end') }, 100)
@@ -537,17 +540,17 @@
 
       function Detail(props){
       
-        let [fade2, setFade2] = useState('')
+      let [fade2, setFade2] = useState('')
       
-        useEffect(()=>{
-          setTImeout(()=>{ setFade2('end') }, 100)
-          return ()=>{
-            setFade2('')
-          }},[])
+      useEffect(()=>{
+        setTImeout(()=>{ setFade2('end') }, 100)
+        return ()=>{
+          setFade2('')
+        }},[])
       
-          return (
-            <div className={'container start ' + fade2}>
-            (하단 html 생략))}
+        return (
+          <div className={'container start ' + fade2}>
+          (하단 html 생략))}
 
 
 
