@@ -3,25 +3,25 @@ import data from './data.js';
 import Detail from './components/Detail';
 import Cart from './components/Cart';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Routes, Route, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
 
 function App() {
 
-  // useEffect(()=>{
-  //   localStorage.setItem('watched', JSON.stringify( [] ))
-  // }, [])
-  //새로고침 되면 자료가 날라가서 로컬 스토리지에 자료를 저장해놓기 위해
-  //라이브러리 사용 : redux persist
-  //리덕스와 비슷한 스테이트 관리 라이브러리 : jotai , zustand
-
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
+  let result = useQuery(['작명'], ()=>
+    axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+      return a.data
+    })
+  )
+  
   return (
     <div className="App">
 
@@ -32,6 +32,9 @@ function App() {
             <Nav.Link className="nav-menu" onClick={()=>{ navigate('/') }}>Home</Nav.Link>
             <Nav.Link className="nav-menu" onClick={()=>{ navigate('/detail/0') }}>Detail</Nav.Link>
             <Nav.Link className="nav-menu" onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
+          </Nav>
+          <Nav>
+            { result.isLoading ? '로딩중' : result.data.name }
           </Nav>
         </Container>
       </Navbar>
