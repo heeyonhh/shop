@@ -19,18 +19,17 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>{state.cart[0].name}</td>
-                        <td>{state.cart[0].count}</td>
-                        <td>변경하기</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>{state.cart[1].name}</td>
-                        <td>{state.cart[1].count}</td>
-                        <td>변경하기</td>
-                    </tr>
+                    {/* arry.map(a, i) */}
+                    {
+                        state.cart.map((a, i)=>
+                            <tr key={i}>
+                                <td>1</td>
+                                <td>{state.cart[i].name}</td>
+                                <td>{state.cart[i].count}</td>
+                                <td>변경하기</td>
+                            </tr>
+                        )
+                    }
                 </tbody>
             </Table>
         </div>
