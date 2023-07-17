@@ -2,6 +2,9 @@ import { Container, Row, Col, Nav } from 'react-bootstrap';
 import '../App.css';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { addItem } from '../store';
+import { useDispatch } from 'react-redux';
+
 
 function Detail(props) {
 
@@ -10,6 +13,7 @@ function Detail(props) {
     let [alert, setAlert] = useState(true);
     let [탭, 탭변경] = useState(1);
     let [fade2, setFade2] = useState('');
+    let dispatch = useDispatch();
 
     useEffect(() => {
         let a = setTimeout(() => { setAlert(false) }, 10000)
@@ -45,7 +49,9 @@ function Detail(props) {
                         <h4 className="pt-5">{찾은상품.title}</h4>
                         <p>{찾은상품.content}</p>
                         <p>{찾은상품.price}원</p>
-                        <button className="btn btn-danger">주문하기</button>
+                        <button className="btn btn-danger" onClick={()=>{
+                            dispatch(addItem({id : 4, name : 'Enzo Blues', count : 12}))
+                        }}>주문하기</button>
                     </Col>
                 </Row>
             </Container>
