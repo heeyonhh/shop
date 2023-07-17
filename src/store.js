@@ -1,23 +1,21 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
-//redux의 state변경하는 법
-//1.reducers 안에 state수정해주는 함수 만들기
 let user = createSlice({
   name : 'user',
-  initialState : 'kim',
+  initialState : { name : 'kim', age : 20 },
   reducers : {
-    changeName(){
-      return 'john'
-    }
-    // 스테이트에 추가로 하고 싶으면
-    // changeName(state){
-    //   return 'john' + state
-    // }
+    changeName(state){
+      // return { name : 'park', age : 20 }
+      state.name = 'park'
+    },
+    increase(state){
+      state.age += 1
+    },
   }
 })
+//array, object의 경우 직접 수정해도 state변경됨 -> 그래서 문자 하나만 필요해도 일부러 {} 안에 담기도함 return없이 수정되서
 
-export let { changeName } = user.actions
-//2. 만든함수 export해야함 (디스트럭쳐링 문법)
+export let { changeName, increase } = user.actions
 
 let cart = createSlice({
   name : 'cart',
@@ -27,7 +25,6 @@ let cart = createSlice({
   ] 
 })
 
-//등록
 export default configureStore({
   reducer: {
     user : user.reducer,
