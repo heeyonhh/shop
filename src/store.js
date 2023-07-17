@@ -8,12 +8,12 @@ let user = createSlice({
       // return { name : 'park', age : 20 }
       state.name = 'park'
     },
-    increase(state){
-      state.age += 1
+    increase(state, a){
+      state.age += a.payload
     },
   }
 })
-//array, object의 경우 직접 수정해도 state변경됨 -> 그래서 문자 하나만 필요해도 일부러 {} 안에 담기도함 return없이 수정되서
+//디스패치 변경 함수에 파라미터 뚫어보기 increase(10) a.payload 화물 소포 택배 파라미터 작명 action으로 많이 함
 
 export let { changeName, increase } = user.actions
 
