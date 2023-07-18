@@ -622,4 +622,318 @@
 
 ## 0717
 
-- 
+- redux store에 state 보관하는 법
+
+      import { configureStore, createSlice } from '@reduxjs/toolkit'
+      
+      let user = createSlice({
+        name : 'user',
+        initialState : 'kim'
+      })
+      
+      export default configureStore({
+        reducer: {
+          user : user.reducer
+        }})
+
+(Cart.js)
+
+      import { useSelector } from "react-redux"
+      
+      function Cart(){
+        let a = useSelector((state) => { return state } )
+        let a = useSelector((state) => state.user ) 
+        console.log(a)
+      
+        return (생략)}
+
+- 간단한 프로젝트 컴포넌트가 몇개 없을때는 props쓰는게 코드가 더 짧음
+
+- 오브젝트 형식 데이터 넣어보기
+
+      let cart = createSlice({
+        name : 'cart',
+        initialState : [
+          {id : 0, name : 'White and Black', count : 2},
+          {id : 2, name : 'Grey Yordan', count : 1}
+        ]
+      })
+      
+      export default configureStore({
+        reducer: {
+          user : user.reducer,
+          cart : cart.reducer
+        }})
+
+  import 후
+      
+      <tbody>
+        {
+          state.cart.map((a, i)=>
+            <tr key={i}>
+              <td>1</td>
+              <td>{state.cart[i].name}</td>
+              <td>{state.cart[i].count}</td>
+              <td>안녕</td>
+            </tr>
+           )
+         }
+      </tbody>
+
+- state 변경
+
+      let user = createSlice({
+        name : 'user',
+        initialState : 'kim',
+        reducers : {
+          changeName(state){
+            return 'john ' + state
+          }
+        }})
+
+      export let { changeName } = user.actions 
+
+  (Cart.js)
+      
+      import { useDispatch, useSelector } from "react-redux"
+      import { changeName } from "./../store.js"
+      
+      (생략) 
+      
+      <button onClick={()=>{
+        dispatch(changeName())
+      }}>버튼임</button> 
+  
+- 장점 : 버그 찾기가 수월함 범인은 무조건 store.js에
+
+- redux state가 array/object인 경우 변경
+      
+      let user = createSlice({
+        name : 'user',
+        initialState : {name : 'kim', age : 20},
+        reducers : {
+          changeName(state){
+            state.name = 'park'
+          }
+        }})
+
+- state를 만들때 숫자 하나만 필요해도 redux에선 일부러 object array로 담는 경우도 있음 수정 편리
+
+- 파라미터 문법 state 변경 함수 활용
+
+      let user = createSlice({
+        name : 'user',
+        initialState : {name : 'kim', age : 20},
+        reducers : {
+          increase(state, a){
+            state.age += a.payload
+          }
+        }})
+
+  import 후 dispatch(increase()) + 1
+
+  increase(10) = +10
+
+  increase(100) = +100
+
+- a 말고 action 이런식으로 작명 많이 함 / action.type 하면 state 변경함수 이름 나옴
+
+  action.payload 하면 파라미터 나옴
+
+- store 폴더 만들어서 파일 분할 보관하기
+
+- 수량 + 1 기능 : state 변경
+
+      let cart = createSlice({
+        name : 'cart',
+        initialState : [
+          {id : 0, name : 'White and Black', count : 2},
+          {id : 2, name : 'Grey Yordan', count : 1}
+        ],
+        reducers : {
+          addCount(state, action){
+            let 번호 = state.findIndex((a)=>{ return a.id === action.payload })
+      state[번호].count++
+          }
+        }})
+
+  (Cart.js)
+      
+      <tbody>
+        {
+          state.cart.map((a, i)=>
+            <tr key={i}>
+              <td>{state.cart[i].id}</td>
+              <td>{state.cart[i].name}</td>
+              <td>{state.cart[i].count}</td>
+              <td>
+                <button onClick={()=>{ dispatch(addCount(state.cart[i].id)) }}>+</button>
+              </td>
+            </tr>
+           )
+         }
+      </tbody>
+
+- 새로운 상품 추가 : state 항목 추가
+
+      let cart = createSlice({
+        name : 'cart',
+        initialState : [
+          {id : 0, name : 'White and Black', count : 2},
+          {id : 2, name : 'Grey Yordan', count : 1}
+        ],
+        reducers : {
+          addCount(state, action){
+            state[action.payload].count++
+          },
+          addItem(state, action){
+            state.push(action.payload)
+          }
+        }})
+
+  (Detail.js)
+      
+      <div className="col-md-6">
+        <h4 className="pt-5">{찾은상품.title}</h4>
+        <p>{찾은상품.content}</p>
+        <p>{찾은상품.price}원</p>
+        <button className="btn btn-danger" onClick={()=>{
+          dispatch(addItem( {id : 1, name : 'Red Knit', count : 1} ))
+        }}>주문하기</button>
+        </div>
+      </div>
+
+- 리액트에서 자주쓰는 if문 작성 패턴
+
+  <컴포넌트 안에서 쓰는 if/else>
+
+      function Component() {
+        if ( true ) {
+          return <p>참이면 보여줄 HTML</p>;
+        } else {
+          return null;
+        }
+      }
+
+  <JSX안에서 쓰는 삼항연산자> ternary operator
+
+  조건문 ? 조건문 참일때 실행할 코드 : 거짓일 때 실행할 코드
+      
+      function Component() {
+        return (
+          <div>
+            {
+              1 === 1
+              ? <p>참이면 보여줄 HTML</p>
+              : null
+            }
+          </div>
+        )}
+
+  <&& 연산자로 if 역할 대신하기>
+
+      function Component() {
+        return (
+          <div>
+            {
+              1 === 1
+              ? <p>참이면 보여줄 HTML</p>
+              : null
+            }
+          </div>
+        )}
+
+  같음 
+      
+      function Component() {
+        return (
+          <div>
+            { 1 === 1 && <p>참이면 보여줄 HTML</p> }
+          </div>
+
+  <switch / case 조건문>
+      
+      function Component2(){
+        var user = 'seller';
+        switch (user){
+          case 'seller' :
+            return <h4>판매자 로그인</h4>
+          case 'customer' :
+            return <h4>구매자 로그인</h4>
+          default : 
+            return <h4>그냥 로그인</h4>
+        }}
+
+      1. switch (검사할변수){}
+      
+      2. 그 안에 case 검사할변수가이거랑일치하냐 : 를 넣기
+      
+      3. 그래서 이게 일치하면 case : 밑에 있는 코드를 실행
+      
+      4. default : 는 그냥 맨 마지막에 쓰는 else문과 동일
+
+  <object/array 자료형 응용>
+
+        function Component() {
+        var 현재상태 = 'info';
+        return (
+          <div>
+            {
+              { 
+                 info : <p>상품정보</p>,
+                 shipping : <p>배송관련</p>,
+                 refund : <p>환불약관</p>
+              }[현재상태]
+            }
+      
+          </div>
+        )}
+
+- localStorage : 정보 저장
+  
+  localStorage.setItem('데이터이름', '데이터'); 추가
+  
+  localStorage.getItem('데이터이름'); 읽기
+  
+  localStorage.removeItem('데이터이름') 삭제
+
+- localStorage에 array/object 자료 저장
+
+  문자만 저장할 수 있는 공간이라 array/object를 바로 저장할 수는 없음 / json으로 변환
+
+  localStorage.setItem('obj', JSON.stringify({name:'kim'}) );
+
+  var a = localStorage.getItem('obj');
+  var b = JSON.parse(a)
+
+- @tanstack/react-query : ajax 기능 라이브러리
+
+  SNS, 코인거래소같은 실시간 데이터를 보여줘야하는 사이트들이 쓰면 유용
+
+  npm install @tanstack/react-query 셋팅
+
+        import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(
+        <QueryClientProvider client={queryClient}>  //3번
+          <Provider store={store}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Provider>
+        </QueryClientProvider>
+      );
+  
+      function App(){
+        let result = useQuery(['작명'], ()=>
+          axios.get('https://codingapple1.github.io/userdata.json')
+          .then((a)=>{ return a.data })
+        )}
+
+- 웹소켓이나 Server-sent events 같은 가벼운 방식들도 있음 / RTK Query 라이브러리 : 코드 복잡
+
+
+## 0718
+
+- 성능개선 1 : 개발자도구 & lazy import
